@@ -1,0 +1,10 @@
+.DS_Store
+
+__pycache__/
+*.pyc
+
+build/
+dist/
+
+wordle_stats.json
+XXXwordle_stats.json

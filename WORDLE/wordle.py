@@ -1,18 +1,12 @@
-'''
-Method 3 — I can regenerate it as a downloadable PNG file
-The better option is for me to create the icon again as a proper PNG file attachment rather than just an image displayed in the chat. Then you can save it directly into your Wordle folder.
-I can do that next.
 # Sean J Fennell
-# 12 Aug 2026 @ 2142
-'''
+# 14 Aug 2026 @ 1211
+
 import tkinter as tk
 from tkinter import font
 import random
 import os
 import json
 
-
-    
 class WordleGame:
     def __init__(self, master):
         self.master = master
@@ -31,7 +25,6 @@ class WordleGame:
         self.game_over = False
         self.current_game_won = False
         
-        
         self.current_guesses = 0
         
         self.share_results = []
@@ -46,9 +39,6 @@ class WordleGame:
         self.current_streak = 0
         self.best_streak = 0
         self.gave_up = 0
-
-
-        
 
         self.guess_distribution = {
             1: 0,
@@ -150,9 +140,6 @@ class WordleGame:
         self.distribution_heading.grid(
             row=0, column=0, padx=20, sticky="w")
 
-
-      
-     
         self.distribution_label = tk.Label(
             self.distribution_column,
             text="",
@@ -165,8 +152,8 @@ class WordleGame:
             row=1,  column=0, padx=(20), sticky="w")
         
         self.update_distribution_display()
-
         self.update_statistics_display()
+
         self._create_board_grid()
         self._create_keyboard()
         
@@ -302,11 +289,6 @@ class WordleGame:
             pady=20
         )
         label.pack(fill="both", expand=True)
-
-
-
-
-
 
 
     def load_words(self, filename):
@@ -588,27 +570,13 @@ class WordleGame:
                 )
                 return
 
-
-                
-                #self.game_over = True
-                #self.disable_keyboard()
-                
-                #return
                 self.master.after(
                     1000,
                     self.end_game_win
                 )
                 return
 
-
-
-
-
-
-            
-         #   else:
-            #   pass
-               # print("Not correct")
+      
 
             #  go to start of next row
             #  but stop if we are on the last row
@@ -703,21 +671,6 @@ class WordleGame:
                 height=2
             )
 
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def check_guess(self, guess):
                 
@@ -736,8 +689,6 @@ class WordleGame:
                 remaining[col] = None
                 
 
-                
-
         # Second pass: correct letter in wrong position,
         # or letter not in the word
         for col in range(5):
@@ -750,12 +701,7 @@ class WordleGame:
                 # Letter is in the word, but in the wrong position
                 tile_results[col]=("yellow")
                 self.update_keyboard_button(guess[col], "yellow")
-
-
-                #  label.config(bg="yellow", fg="black")
-                
-                
-                
+     
                 row_result.append("🟨")
                 remaining[remaining.index(guess[col])] = None
 
@@ -763,8 +709,6 @@ class WordleGame:
                 # Letter is not in the word
                 tile_results[col]=("grey")
 
-
-                # label.config(bg="grey", fg="white")
 
                 self.update_keyboard_button(guess[col], "grey")
 
@@ -876,9 +820,7 @@ class WordleGame:
             )
 
         self.distribution_label.config(text=distribution_text)
-
-
-        
+      
 
     def show_end_message(self, won, guesses=None):
         if won:
@@ -924,12 +866,6 @@ class WordleGame:
         self.disable_keyboard()
 
         self.copy_button.config(state="normal")
-
-
-
-
-
-
 
 
     def generate_share_result(self):
@@ -1075,217 +1011,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-'''
-
-The next logical stages, when you come back, would probably be:
-Design the icon
-Something simple like:
-five Wordle squares,
-a highlighted letter,
-maybe "W" or "WORDLE" styling,
-suitable for a macOS .icns file.
-
-Final polish
-check window size on smaller screens/iPads
-adjust spacing/padding
-maybe add a small version number in About
-
-Packaging
-create the .app
-add the icon
-test opening from Finder
-possibly create a .dmg
-
-I would avoid adding major new features now. The game already has the feel of a finished application rather than just a programming exercise.
-When you return, we can pick up with the icon design. I think a custom icon would be a nice finishing touch.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Auto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Sources
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- if self.games_won > 0:
-            total_guesses = 0
-
-            for guesses, count in self.guess_distribution.items():
-                total_guesses += guesses * count
-
-            average_guesses = total_guesses / self.games_won
-            average_text = f"{average_guesses:.1f}"
-        else:
-            average_text = "   --"
-
-        games_lost = self.games_played - self.games_won
-
-        self.stats_label.config(
-            text=f"STATISTICS\n\n"
-                 f"Games played:    {self.games_played:>5}\n"
-                 f"Games won:       {self.games_won:>5}\n"
-                 f"Games lost:      {games_lost:>5}\n\n"
-
-                 f"Win percentage:  {win_percent:>4.0f}%\n"
-                 f"Average guesses: {average_text:>5}\n\n"
-
-                 f"Current streak:  {self.current_streak:>5}\n"
-                 f"Best streak:     {self.best_streak:>5}\n\n"
-
-                 f"Gave up:         {self.gave_up:>5}\n"
-        )
-
-
-
-3. Make one final observation
-Play a few games and check:
-A normal win on guesses 2–6
-A first-guess win
-A loss after six rows
-COPY RESULT
-Statistics
-New Game
-The reason I suggest this is that animation introduces timing, and timing can sometimes expose small issues in buttons or game-over handling.
-After that, I think the next worthwhile improvement would be the application icon and Mac .app packaging, because the program itself is now very close to finished.
-You have come a long way from the first version where the board, keyboard, statistics, and word checking were still being built. This is now a proper little game. 👍
-
-
-
-
-
-
-
-
-
-
-Using Label is actually a good choice for Wordle because the squares are display areas rather than controls. You can now concentrate on the game itself.
-A sensible order for building it would be:
-6 × 5 grid — done.
-Keyboard underneath the grid.
-Allow the player to type a five-letter word.
-Put each letter into the current row.
-Press Enter to submit the guess.
-Check the guess against the hidden five-letter word.
-Change each square's background:green = correct letter and position
-yellow = correct letter, wrong position
-grey = letter not in the word
-
-Move to the next row.
-Detect win or six unsuccessful guesses.
-I would tackle these one at a time, rather than trying to write the whole Wordle game at once.
-The next logical step is probably getting keyboard input into the five squares of the first row.
-
-This is a good milestone because now your program is actually evaluating the guess visually.
-After this works, the next step will be:
-make ENTER move to the next row;
-then add the yellow "correct letter, wrong place" logic;
-finally add a random word list.
-You're progressing through exactly the same stages that a professional developer would use: get the mechanics working first, then add complexity.
-
-
-That sounds like a very good place to stop. 👍
-You have actually achieved a lot in one evening:
-✅ Built the Wordle board
-✅ Built the on-screen keyboard
-✅ Connected buttons to the game logic
-✅ Entered letters into the correct squares
-✅ Implemented backspace correctly
-✅ Limited guesses to five letters
-✅ Added the ENTER function
-✅ Built a guess string from the row
-✅ Compared the guess with the secret word
-✅ Added the first stage of colour feedback  
-The program has now moved from being a GUI layout exercise into a working game engine.
-When you come back tomorrow, I suggest we continue in this order:
-Move to the next row after ENTER
-reset current_col
-increase current_row
-prevent going beyond row 5
-
-Improve the colour checking
-green: correct letter and position
-yellow: correct letter but wrong position
-grey: letter not present
-
-Add a random secret word
-replace "HELLO" with a word chosen from a list
-
-Add game endings
-"You won!"
-"Game over — the word was..."
-
-One thing I would mention before you close it tonight: save a copy of this working version. You have reached a good checkpoint, and it is always worth keeping a version that works before adding the next layer.
-Enjoy the rest — you made very good progress today. I look forward to continuing with it tomorrow. 🙂
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''

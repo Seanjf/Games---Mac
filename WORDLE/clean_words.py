@@ -1,4 +1,4 @@
-filename = "wordle_answers.txt"
+filename = "wordle_guesses.txt"
 
 with open(filename, "r", encoding="utf-8-sig") as file:
     words = {
